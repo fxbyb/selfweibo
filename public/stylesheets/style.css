@@ -1,0 +1,362 @@
+
+/*header**************************************************/
+html,body {
+  margin:0;
+  padding: 0;
+}
+a{
+  text-decoration: none !important;
+}
+a:hover{
+  text-decoration: none !important;
+}
+body{
+  background-image: url("/images/homebg.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  min-height: 1000px;
+}
+header{
+  height: 4rem;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
+}
+header>div>div{
+   display: inline;
+   float: right;
+}
+header>div>img,header>div>form{
+  display: inline-block;
+  float: left;
+}
+header>div input{
+  margin-top: 0.8rem;
+  height:2rem;
+}
+header>div>div>a{
+  display: inline-block;
+  margin: 1rem 1.5rem;
+  font-size: 1.7rem;
+  color: #5e5e5e;
+}
+header>div>div>a:hover{
+  color: orange;
+}
+/*header*************************************************/
+
+/*首页左侧**********************/
+div.homeleft{
+  padding: 5rem 0 0 1rem;
+}
+div.homeleft a{
+  display: block;
+  width: 100%;
+  height:3rem;
+  line-height: 3rem;
+  font-size: 1.7rem;
+  color: red;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+div.homeleft a:hover{
+  background-color: rgb(127,184,219);
+}
+/*首页右侧*********************************/
+div.homeright{
+  margin-top: 5rem;
+  float: right;
+  background-color: white;
+  padding: 0;
+}
+div.homeright form{
+  margin: 1rem 2rem;
+}
+div.homeright input{
+  margin-bottom: 0.8rem;
+  height:2.5rem;
+  width: 100%;
+  padding-left: 1rem;
+}
+div.homeright input:last-child{
+  padding-left: 0;
+  height:2.7rem;
+  background-color: orangered;
+  border: none;
+}
+div.homeright h4{
+  margin-left: 1.7rem;
+}
+div.homeright .index-gt{
+  position: relative;
+  width: 100%;
+}
+div.homeright .index-gt .bg{
+  width: 100%;
+  height: 6rem;
+  background-image: url("/images/bg.jpg");
+  background-size: 100% 100%;
+  z-index: 1;
+  position: relative;
+}
+.HRImg{
+  display: inline-block;
+  z-index: 20;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  top:2.5rem;
+  left: calc(50% - 2.75rem);
+}
+.HRImg img{
+  width: 100%;
+  height:100%;
+}
+.idImg{
+  display: inline-block;
+  z-index: 20;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.idImg img{
+  width: 100%;
+  height:100%;
+}
+.index-gt p{
+  margin-bottom: 0;
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.index-gt .weibo a{
+  display: inline-block;
+  width: 49.5%;
+  margin: 0.5rem auto;
+  text-align: center;
+  font-size: 1.3rem;
+  color: black;
+}
+.index-gt .weibo a:hover{
+  color: orange;
+}
+.index-gt .weibo a:first-child{
+  border-right: 1px solid rgb(128,128,128);
+}
+/*登录*****************************************************/
+#lgin{
+  width: 30rem;
+  height:20rem;
+  margin: auto;
+}
+#login{
+  width: 15rem;
+  margin: auto;
+  margin-top: 2rem;
+  padding-left: 2rem;
+}
+div.modal-backdrop-bg{
+  opacity: 0;
+}
+/*主页中间内容***************************************/
+#cont{
+  padding-bottom: 1rem;
+}
+#homecenter{
+  margin-top: 5rem;
+}
+#homecenter form{
+  background-color: white;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.3rem;
+}
+#homecenter form textarea{
+  border:1px solid red;
+  resize: none;
+  width: 100%;
+}
+#homecenter form h4{
+  overflow: hidden;
+}
+#homecenter form h4>span{
+  float: right;
+  font-size: 1.5rem;
+}
+.HCTleft,.HCTright{
+  height:2rem;
+  border: 1px solid orange;
+  margin-top: 0.7rem;
+}
+.HCTleft{
+  float: left;
+  border: none;
+  background-color: white;
+}
+.HCTright{
+  float: right;
+  opacity: 0.7;
+  background-color: #ffc09f;
+}
+.every{
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  background-color: white;
+  position: relative;
+  border-radius: 0.3rem;
+}
+.every .img{
+  position: absolute;
+  width: 3.5rem;
+  height:3.5rem;
+  border-radius: 1.75rem;
+  overflow: hidden;
+}
+.every .img>img{
+  width:100%;
+  height:100%;
+}
+.every .tripe h4{
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.every .tripe h4 a:nth-child(2){
+  font-size: 3rem;
+  position: absolute;
+  right: 0.8rem;
+  top:0rem;
+  color: rgb(128,128,159);
+}
+.every .tripe{
+  margin-left: 4rem;
+  margin-top: 0.5rem;
+}
+.every .tripe article{
+  overflow-wrap: break-word;
+  width: 95%;
+}
+.every .tripe article p{
+  margin: 0;
+}
+.ShowImg{
+  max-width: 15rem;
+  max-height: 15rem;
+  overflow: hidden;
+  margin: 0.4rem 0;
+}
+.ShowImg img{
+  max-height: 100%;
+  max-width: 100%;
+}
+.every span{
+  color: rgb(128,128,159);
+  font-size: 12px;
+}
+.every .good{
+  text-align: center;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgb(242,242,245);
+}
+.every .good a{
+  display: inline-block;
+  color: rgb(128,128,159);
+  width: 48%;
+}
+.every .good a:first-child{
+  border-right: 1px solid rgb(217,217,217);
+}
+.every .good a:hover{
+  color: orange;
+}
+.every h4 a:last-child{
+  float: right;
+  color: #5e5e5e;
+  font-size: 1rem;
+}
+.every h4 a:first-child{
+  float: left;
+  font-size:2rem;
+  color: #5e5e5e;
+}
+.every h4 a:hover{
+  color: orange;
+}
+/*个人中心******************************************************/
+#self{
+  margin-top: 5rem;
+}
+#self .Hself{
+  color: white;
+  padding-top: 4rem;
+  padding-bottom: 7rem;
+  background-size: 100% 100%;
+  text-align: center;
+}
+#self .Hself img{
+  width: 9rem;
+  height:9rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+}
+#self .Hself img.cur:hover{
+  cursor: pointer;
+}
+#self .Hself h3{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+#self .Cself{
+  font-size: 1.5rem;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.2rem;
+}
+#self .Cself a{
+  color: #000;
+  line-height: 4rem;
+}
+#self .Cself .red{
+  border-bottom: 2px solid red;
+}
+#self .Fself{
+  display: flex;
+  justify-content: space-between;
+}
+#self .Fself .sleft{
+  width: 25%;
+}
+#self .Fself .sright{
+  width: 70%;
+  margin-bottom: 3rem;
+  background-color: rgb(222,222,222);
+}
+#self .Fself .Lbox{
+  background-color: white;
+  padding: 1rem 1rem 0 1rem;
+}
+.sPicture{
+  width: 100%;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background-color: white;
+}
+.pictureGrop{
+  display: inline-block;
+  width: 24.5%;
+  height: 15rem;
+  overflow: auto;
+  margin: 0;
+  border: 1px solid rgb(243,243,243);
+}
+.pictureGrop img{
+  width: 100%;
+  height: 100%;
+}

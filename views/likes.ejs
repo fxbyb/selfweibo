@@ -1,0 +1,72 @@
+<% include header.ejs %>
+<div class="container" id="comment">
+  <% include Homeleft.ejs %>
+  <div id="homecenter" class="col-md-7 col-lg-7">
+    <% posts.forEach(function (post,index) {%>
+    <section class="every">
+      <div class="img">
+        <% if(post.idpicture){%>
+        <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/idpicture/<%= post.idpicture%>" alt=""></a>
+        <%}else{%>
+        <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/touxiang.png" alt=""></a>
+        <%}%>
+      </div>
+      <div class="tripe">
+        <h4>
+          <a href="/self/index/<%= post.name%>"><%= post.name %></a>
+          <% if(user && post.name == user.name){%>
+          <a href="/del/<%= post.name%>/<%= post.time.year%>">删除</a>
+          <%}%>
+        </h4>
+        <span>
+          <% if( time.day == post.time.day ){ %>
+          今天 <time><%= post.time.minute%></time> 来自微博weibo.com
+          <%}else{%>
+          <time><%= post.time.year%></time> 来自微博weibo.com
+          <%}%>
+        </span>
+        <article><%- post.post%></article>
+        <% if(post.picture){%>
+        <div class="ShowImg"><img src="/images/picture/<%= post.picture %>" alt=""></div>
+        <%}%>
+      </div>
+      <div class="good">
+        <a href="/comment/<%= post.name%>/<%= post.time.year%>">评论</a>
+        <% var likeNum = 0; haslike=0; %>
+        <% post.likes.forEach(function (likeName,index) { %>
+        <% if(likeName == user.name){%>
+        <% haslike = 1; %>
+        <%}%>
+        <% likeNum++ %>
+        <%})%>
+        <% if(haslike == 0){%>
+        <a href="/like/<%= post.name %>/<%= post.time.year %>">
+          <span class="glyphicon glyphicon-thumbs-up"></span>赞 (<%= likeNum %>)</a>
+        <%}else{%>
+        <a href="/unlike/<%= post.name %>/<%= post.time.year %>">
+          <span class="glyphicon glyphicon-thumbs-up"></span>已赞 (<%= likeNum %>)</a>
+        <%}%>
+      </div>
+    </section>
+    <%})%>
+    <hr>
+    <p style="text-align: center">没有更多内容了</p>
+  </div>
+  <% include Homeright.ejs%>
+</div>
+<script>
+  $(function () {
+    $('#homecenter form textarea').keyup(function () {
+      textarea();
+    })
+    function textarea() {
+      if(!$('#homecenter form textarea').val()){
+        $('#homecenter form .HCTright').css('opacity','0.7').attr('disabled','disabled');
+      }else{
+        $('#homecenter form .HCTright').css('opacity','1').removeAttr('disabled');
+      }
+    }
+  })
+</script>
+<% include login.ejs %>
+<% include footer.ejs%>

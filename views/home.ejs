@@ -1,0 +1,102 @@
+
+
+
+<div id="cont"style="position: relative" class="container">
+  <div class="" style="position: absolute;width:100%;height:100%;background-color:#9e9e9e;opacity: 0.3;"></div>
+  <%include Homeleft.ejs%>
+  <div id="homecenter" class="col-md-7 col-lg-7 col-sm-7">
+    <% if(user){ %>
+    <form action="/report" method="post" enctype="multipart/form-data">
+      <h4>有什么新鲜事想告诉大家？<span>还能输入 <span style="color: red;font-size: 2rem">140</span> 字</span></h4>
+      <textarea name="textarea" id="" cols="" rows="5"></textarea>
+      <button type="button" class="HCTleft">
+        <span style="color: orangered;" class="glyphicon glyphicon-picture text-primary"></span> 图片</button>
+      <input multiple name="pic" class="hidden file1" type="file">
+      <input name="picture" type="text" class="hidden file2">
+      <input type="submit" class="HCTright" value="发布">
+      <div style="clear: both"></div>
+    </form>
+    <% }%>
+    <% posts.forEach(function (post,index) {%>
+    <section class="every">
+      <div class="img">
+        <% if(post.idpicture){%>
+        <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/idpicture/<%= post.idpicture%>" alt=""></a>
+        <%}else{%>
+        <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/touxiang.png" alt=""></a>
+        <%}%>
+      </div>
+      <div class="tripe">
+        <h4>
+          <a href="/self/index/<%= post.name%>"><%= post.name %></a>
+          <% if(user && post.name == user.name){%>
+          <a href="/del/<%= post.name%>/<%= post.time.year%>">&times;</a>
+          <%}%>
+        </h4>
+        <span>
+          <% if( time.day == post.time.day ){ %>
+          今天 <time><%= post.time.minute%></time> 来自微博weibo.com
+          <%}else{%>
+          <time><%= post.time.year%></time> 来自微博weibo.com
+          <%}%>
+        </span>
+        <article><%- post.post%></article>
+          <% if(post.picture){%>
+          <div class="ShowImg"><img src="/images/picture/<%= post.picture %>" alt=""></div>
+          <%}%>
+      </div>
+        <div class="good">
+          <% var Comments = 0 %>
+          <% post.comments.forEach(function (comment,index) { %>
+          <% Comments++ %>
+          <%})%>
+            <a href="/comment/<%= post.name%>/<%= post.time.year%>"><span class="glyphicon glyphicon-comment"></span> 评论(<%= Comments%>)</a>
+            <% var likeNum = 0; haslike=0; %>
+            <% post.likes.forEach(function (likeName,index) { %>
+            <% if(user && likeName == user.name){%>
+            <% haslike = 1; %>
+            <%}%>
+            <% likeNum++ %>
+            <%})%>
+            <% if(haslike == 0){%>
+            <a href="/like/<%= post.name %>/<%= post.time.year %>">
+                <span class="glyphicon glyphicon-thumbs-up"></span>赞 (<%= likeNum %>)</a>
+            <%}else{%>
+            <a href="/unlike/<%= post.name %>/<%= post.time.year %>">
+                <span style="color: orange;" class="glyphicon glyphicon-thumbs-up"></span> 已赞 (<%= likeNum %>)</a>
+            <%}%>
+        </div>
+    </section>
+    <%})%>
+      <hr>
+    <p style="text-align: center">没有更多内容了</p>
+  </div>
+  <%include Homeright.ejs%>
+</div>
+<script>
+  $(function () {
+    $('.HCTleft').mousedown(function () {
+      $(this).next().click();
+    })
+    updatePicture();
+    function updatePicture() {
+      if($('.HCTleft').next().val()){
+        $('#homecenter form .HCTright').css('opacity','1').removeAttr('disabled');
+      }else{
+        $('#homecenter form .HCTright').css('opacity','0.7').attr('disabled','disabled');
+      }
+    }
+    var file1 = $('#homecenter form .file1');
+    var file2 = $('#homecenter form .file2');
+    file1.on('change',function () {
+      var file = $(this)[0].files[0];
+      if (file.type.startsWith('image')) {
+        var name = file.name;
+        file2.val(name);
+        updatePicture();
+      }else{
+        alert('只能上传图片');
+      }
+    })
+  })
+</script>

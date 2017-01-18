@@ -1,0 +1,79 @@
+
+<div class="sleft">
+  <div class="Lbox">
+    <h3><%= name.name%>的资料片</h3>
+    <% if(name.nowPlace){%>
+    <p><span class="glyphicon glyphicon-map-marker"></span><%= name.nowPlace%></p>
+    <%}else{%>
+    <p><span class="glyphicon glyphicon-map-marker"></span>未填写</p>
+    <%}%>
+    <p><span class="glyphicon glyphicon-gift"></span><%= name.birth%></p>
+    <% if(name.jianjie){%>
+    <p><span class="glyphicon glyphicon-file"></span><%= name.jianjie%></p>
+    <%}else{%>
+    <p><span class="glyphicon glyphicon-file"></span>这个人很懒，什么都没有留下</p>
+    <%}%>
+    <div class="more"><a href="/self/message/<%= name.name%>">查看更多...</a></div>
+  </div>
+  <div class="Lbox">
+
+  </div>
+</div>
+
+
+<div class="sright">
+  <% posts.forEach(function (post,index) {%>
+  <section class="every">
+    <div class="img">
+      <% if(post.idpicture){%>
+      <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/idpicture/<%= post.idpicture%>" alt=""></a>
+      <%}else{%>
+      <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/touxiang.png" alt=""></a>
+      <%}%>
+    </div>
+    <div class="tripe">
+      <h4>
+        <a href="/self/index/<%= post.name%>"><%= post.name %></a>
+        <% if(user && post.name == user.name){%>
+        <a href="/del/<%= post.name%>/<%= post.time.year%>">&times;</a>
+        <%}%>
+      </h4>
+      <span>
+        <% if( time.day == post.time.day ){ %>
+        今天 <time><%= post.time.minute%></time> 来自微博weibo.com
+        <%}else{%>
+        <time><%= post.time.year%></time> 来自微博weibo.com
+        <%}%>
+      </span>
+      <article><%- post.post%></article>
+      <% if(post.picture){%>
+      <div class="ShowImg"><img src="/images/picture/<%= post.picture%>" alt=""></div>
+      <%}%>
+    </div>
+    <div class="good">
+      <% var Comments = 0 %>
+      <% post.comments.forEach(function (comment,index) { %>
+      <% Comments++ %>
+      <%})%>
+      <a href="/comment/<%= post.name%>/<%= post.time.year%>"><span class="glyphicon glyphicon-comment"></span> 评论(<%= Comments%>)</a>
+      <% var likeNum = 0; haslike=0; %>
+      <% post.likes.forEach(function (likeName,index) { %>
+      <% if(user && likeName == user.name){%>
+      <% haslike = 1; %>
+      <%}%>
+      <% likeNum++ %>
+      <%})%>
+      <% if(haslike == 0){%>
+      <a href="/like/<%= post.name %>/<%= post.time.year %>">
+        <span class="glyphicon glyphicon-thumbs-up"></span>赞 (<%= likeNum %>)</a>
+      <%}else{%>
+      <a href="/unlike/<%= post.name %>/<%= post.time.year %>">
+        <span style="color: orange;" class="glyphicon glyphicon-thumbs-up"></span>已赞 (<%= likeNum %>)</a>
+      <%}%>
+    </div>
+  </section>
+  <%})%>
+  <hr>
+  <p style="text-align: center">没有更多内容了</p>
+</div>
+

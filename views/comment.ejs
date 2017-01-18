@@ -1,0 +1,64 @@
+<% include header.ejs %>
+<div class="container" id="comment">
+    <% include Homeleft.ejs %>
+    <div id="homecenter" class="col-md-7 col-lg-7">
+        <section class="every">
+            <div class="img">
+                <% if(post.idpicture){%>
+                <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/idpicture/<%= post.idpicture%>" alt=""></a>
+                <%}else{%>
+                <a class="idImg" href="/self/index/<%= post.name%>"><img src="/images/touxiang.png" alt=""></a>
+                <%}%>
+            </div>
+            <div class="tripe">
+                <h4>
+                    <a href="/self/index/<%= post.name%>"><%= post.name %></a>
+                </h4>
+                <span>
+                    <% if( time.day == post.time.day ){ %>
+                    今天 <time><%= post.time.minute %></time> 来自微博weibo.com
+                    <%}else{%>
+                    <time><%= post.time.year %></time> 来自微博weibo.com
+                    <%}%>
+                </span>
+                <article><%- post.post%></article>
+                <% if(post.picture){%>
+                <div class="ShowImg"><img src="/images/picture/<%= post.picture%>" alt=""></div>
+                <%}%>
+            </div>
+            <hr>
+            <form action="/comment/<%= post.name %>/<%= post.time.year %>" method="post">
+                <h4>欢迎评论：<span>还能输入 <span style="color: red;font-size: 2rem">140</span> 字</span></h4>
+                <textarea name="textarea" id="" cols="" rows="5"></textarea>
+                <input class="HCTright" disabled="disabled" type="submit" value="评论">
+                <div style="clear: both"></div>
+            </form>
+        </section>
+        <section class="liuyan">
+            <% post.comments.forEach(function (comment,index) {%>
+            <section class="every">
+                <div class="img">
+                    <% if(comment.idpicture){%>
+                    <a class="idImg" href="/self/index/<%= comment.name%>"><img src="/images/idpicture/<%= comment.idpicture%>" alt=""></a>
+                    <%}else{%>
+                    <a class="idImg" href="/self/index/<%= comment.name%>"><img src="/images/touxiang.png" alt=""></a>
+                    <%}%>
+                </div>
+                <div class="tripe">
+                    <h4><%= comment.name %></h4>
+                    <span>
+                        <time><%= comment.time%></time> 来自微博weibo.com
+                    </span>
+                    <article><%- comment.content%></article>
+                </div>
+            </section>
+            <% })%>
+        </section>
+    </div>
+    <% include Homeright.ejs%>
+</div>
+<script>
+
+</script>
+<% include login.ejs %>
+<% include footer.ejs%>

@@ -1,0 +1,310 @@
+
+
+<div class="sleft">
+  <div class="Lbox">
+    <h3><%= name.name%>的资料片</h3>
+    <% if(name.nowPlace){%>
+    <p><span class="glyphicon glyphicon-map-marker"></span><%= name.nowPlace%></p>
+    <%}else{%>
+    <p><span class="glyphicon glyphicon-map-marker"></span>未填写</p>
+    <%}%>
+    <p><span class="glyphicon glyphicon-gift"></span><%= name.tel%></p>
+    <% if(name.jianjie){%>
+    <p><span class="glyphicon glyphicon-file"></span><%= name.jianjie%></p>
+    <%}else{%>
+      <p><span class="glyphicon glyphicon-file"></span>这个人很懒，什么都没有留下</p>
+    <%}%>
+    <div class="more"><a href="/self/message/<%= name.name%>">查看更多...</a></div>
+  </div>
+  <div class="Lbox">
+
+  </div>
+</div>
+
+
+<div ng-app="User_edit" class="sright">
+  <h3 class="col-sm-offset-2">基本信息</h3>
+  <% if(user && name.name==user.name){%>
+  <form ng-controller="edit" action="/messageSave" method="post" name="editForm" class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">用户名：</label>
+      <div class="col-sm-3">
+        <input disabled name="name"class="form-control"type="text"placeholder="请输入用户名"value="<%= name.name%>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">真实姓名：</label>
+      <div class="col-sm-3">
+        <input ng-model="trueName" name="trueName" class="form-control" type="text" value="<%= name.trueName%>">
+      </div>
+      <div ng-show="editForm.trueName.$valid" class="col-sm-3">姓名2-4个中文字符</div>
+      {{trueName}}
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">籍贯：</label>
+      <div class="col-sm-1">
+        <select class="birSheng" name="birthSheng"onclick="place1()">
+          <% if(name.jiguan){%>
+          <option value="<%= name.jiguan.split(/-/)[0]%>"selected="selected"><%= name.jiguan.split(/-/)[0]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <select class="birShi"style="width: 5.5rem" name="birthShi">
+          <% if(name.jiguan){%>
+          <option value="<%= name.jiguan.split(/-/)[1]%>"selected="selected"><%= name.jiguan.split(/-/)[1]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+      </div>
+      <span class="hidden text-danger">请填写完整的地址</span>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">所在地：</label>
+      <div class="col-sm-1">
+        <select class="birSheng" name="nowSheng" onclick="place2()">
+          <% if(name.jiguan){%>
+          <option value="<%= name.nowPlace.split(/-/)[0]%>"selected="selected"><%= name.nowPlace.split(/-/)[0]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <select class="birShi"style="width: 5.5rem" name="nowShi">
+          <% if(name.jiguan){%>
+          <option value="<%= name.nowPlace.split(/-/)[1]%>"selected="selected"><%= name.nowPlace.split(/-/)[1]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+      </div>
+      <span class="text-danger hidden">请填写完整的地址</span>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">性别：</label>
+      <div class="col-sm-2"><label for=""><input type="radio"name="sex" value="男">男</label></div>
+      <div class="col-sm-2"><label for=""><input type="radio"name="sex" value="女">女</label></div>
+      <span hidden class="xingbie"><%= name.sex%></span>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">生日：</label>
+      <div class="col-sm-5">
+        <select class="birthYear"name="birthYear"">
+        <% if(name.birth){%>
+        <option value="<%= name.birth.split(/-/)[0]%>"selected="selected"><%= name.birth.split(/-/)[0]%></option>
+        <%}else{%>
+        <option value=""selected="selected"></option>
+        <%}%>
+        </select>
+        <select class="birthMonth"onclick="time()" name="birthMonth">
+          <% if(name.birth){%>
+          <option value="<%= name.birth.split(/-/)[1]%>"selected="selected"><%= name.birth.split(/-/)[1]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+        <select class="birthDay"style="width: 4rem" name="birthDay">
+          <% if(name.birth){%>
+          <option value="<%= name.birth.split(/-/)[2]%>"selected="selected"><%= name.birth.split(/-/)[2]%></option>
+          <%}else{%>
+          <option value=""selected="selected"></option>
+          <%}%>
+        </select>
+      </div>
+      <span class="hidden text-danger">请填写完整的生日</span>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">简介：</label>
+      <div class="col-sm-7">
+        <textarea style="resize: none;" name="jianjie"class="form-control"
+                  type="text"rows="3"><%= name.jianjie%></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">邮箱：</label>
+      <div class="col-sm-4">
+        <input name="email"class="form-control"type="text"value="<%= name.email %>">
+      </div>
+      <span class="hidden text-danger">邮箱必填</span>
+      <span class="hidden text-danger">邮箱格式错误</span>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">QQ：</label>
+      <div class="col-sm-4">
+        <input name="qq"class="form-control"type="text"value="<%= name.qq%>">
+      </div>
+      <span class="hidden text-danger">请填写正确的QQ号码</span>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">电话：</label>
+      <div class="col-sm-4">
+        <input name="tel"class="form-control"type="text"value="<%= name.tel %>">
+      </div>
+      <span class="hidden text-danger">请填写正确的电话号码</span>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3">
+        <input type="submit" value="保存">
+      </div>
+    </div>
+  </form>
+  <%}else{%>
+  <form action="/messageSave" method="post" class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">用户名：</label>
+      <div class="col-sm-3 form-control-static"><%= name.name%></div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">真实姓名：</label>
+      <div class="col-sm-3 form-control-static"><%= name.trueName%></div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">籍贯：</label>
+      <% if(name.jianjie){ %>
+      <div class="col-sm-3 form-control-static"><%= name.jiguan %></div>
+      <%}else{%>
+      <div class="col-sm-3 form-control-static"></div>
+      <%}%>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">所在地：</label>
+      <% if(name.nowPlace){%>
+      <div class="col-sm-3 form-control-static"><%= name.nowPlace%></div>
+      <%}else{%>
+      <div class="col-sm-3 form-control-static"></div>
+      <%}%>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">性别：</label>
+      <div class="col-sm-3 form-control-static"><%= name.sex%></div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">生日：</label>
+      <% if(name.birth){%>
+      <div class="col-sm-3 form-control-static"><%= name.birth%></div>
+      <%}else{%>
+      <div class="col-sm-3 form-control-static"></div>
+      <%}%>
+
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">简介：</label>
+      <div class="col-sm-3 form-control-static"><%= name.jianjie%></div>
+    </div>
+    <div class="form-group">
+      <label for="" class="control-label col-sm-2">邮箱：</label>
+      <div class="col-sm-3 form-control-static"><%= name.email%></div>
+    </div>
+  </form>
+  <%}%>
+</div>
+<script>
+  var citys = [];
+  citys["河南"]=['郑州','开封','洛阳','平顶山','焦作','鹤壁','新乡','安阳','濮阳',
+    '许昌','漯河','三门峡','南阳','商丘','信阳','周口','驻马店'];
+  citys["北京"]=['朝阳区','海淀区','宣武区'];
+  citys["广东"]=['广州','深圳','东莞'];
+  citys['上海']=['浦东区'];
+  citys['新疆']=['齐齐哈尔'];
+  var select1;
+  var select2;
+  var select3;
+  var select4;
+  var sYear;
+  var sMonth;
+  var sDay;
+  window.onload = function () {
+    select1 = document.getElementsByClassName('birSheng')[0];
+    select2 = document.getElementsByClassName('birShi')[0];
+    select3 = document.getElementsByClassName('birSheng')[1];
+    select4 = document.getElementsByClassName('birShi')[1];
+
+    sYear = document.getElementsByClassName('birthYear')[0];
+    sMonth = document.getElementsByClassName('birthMonth')[0];
+    sDay = document.getElementsByClassName('birthDay')[0];
+
+    for(var a in citys){
+      select1.add(new Option(a,a),null);
+      select3.add(new Option(a,a),null);
+    }
+    for(var i=2017;i>1950;i--){
+      sYear.add(new Option(i,i),null);
+    }
+    for(var i=1;i<13;i++){
+      i = i<10 ? '0'+i : i;
+      sMonth.add(new Option(i,i),null);
+    }
+  }
+  function place1() {
+    if(select1.options[select1.selectedIndex].text){
+      select2.length = 0;
+    }
+    var option=select1.options[select1.selectedIndex];
+    var city=citys[option.text];
+    for(var i=0;i<city.length;i++){
+      select2.add(new Option(city[i],city[i]),null);
+    }
+  }
+  function place2() {
+    if(select3.options[select3.selectedIndex].text){
+      select4.length = 0;
+    }
+    var option=select3.options[select3.selectedIndex];
+    var city=citys[option.text];
+    for(var i=0;i<city.length;i++){
+      select4.add(new Option(city[i],city[i]),null);
+    }
+  }
+  function time() {
+      sDay.length = 0;
+      var option=sMonth.options[sMonth.selectedIndex];
+      var month=option.text;
+      sDay.add(new Option(''),null);
+      if(month=='01'||month=='03'||month=='05'||month=='07'||month=='08'||month=='10'||month=='12'){
+        for(var i=1;i<32;i++){
+          i = i<10 ? '0'+i : i;
+          sDay.add(new Option(i,i),null);
+        }
+      }else if(month=='04'||month=='06'||month=='09'|month=='11'){
+        for(var i=1;i<31;i++){
+          i = i<10 ? '0'+i : i;
+          sDay.add(new Option(i,i),null);
+        }
+      }else if((sYear.options[sYear.selectedIndex].text)%4 == 0){
+        for(var i=1;i<30;i++){
+          i = i<10 ? '0'+i : i;
+          sDay.add(new Option(i,i),null);
+        }
+      }else if(month ==''){
+        sDay.add(new Option('',''),null);
+      }else{
+        for(var i=1;i<29;i++) {
+          i = i < 10 ? '0' + i : i;
+          sDay.add(new Option(i, i), null);
+        }
+      }
+  }
+  xingbie1();
+  function xingbie1() {
+    var sexs = document.getElementsByName('sex');
+    var xingbie = document.getElementsByClassName('xingbie')[0].innerHTML;
+    if(xingbie == '男'){
+      sexs[0].checked = true;
+    }else if(xingbie == '女'){
+      sexs[1].checked = true;
+    }
+  }
+</script>
+<script>
+  $(function () {
+    var User_edit = angular.module('User_edit',[]);
+    User_edit.controller('edit',function ($scope,$http) {
+      
+    })
+  })
+</script>
+

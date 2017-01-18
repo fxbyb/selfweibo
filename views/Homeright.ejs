@@ -1,0 +1,36 @@
+
+<div style="border-radius: 0.3rem" class="homeright col-lg-3 col-md-3 col-sm-3">
+  <% if(user){%>
+  <% console.dir(user)%>
+  <section class="index-gt">
+    <div style="border-top-left-radius: 0.3rem;border-top-right-radius: 0.3rem" class="bg">
+      <% if(user.idpicture){%>
+      <a class="HRImg" href="/self/index/<%= user.name%>"><img src="/images/idpicture/<%= user.idpicture%>" alt=""></a>
+      <%}else{%>
+      <a class="HRImg" href="/self/index/<%= user.name%>"><img src="/images/touxiang.png" alt=""></a>
+      <%}%>
+    </div>
+    <p><%= user.name%></p>
+    <div class="weibo">
+      <a href="/self/index/<%= user.name%>">我的微博</a><a href="/self/picture/<%= user.name%>">我的相册</a>
+    </div>
+    <% if(error){%>
+    <%= error%>
+    <% } else if(success){%>
+    <%= success%>
+    <%}%>
+  </section>
+  <% }else{%>
+  <form action="/" method="post">
+    <h4>账号登录</h4>
+    <input type="text"name="name" placeholder="请输入用户名/邮箱">
+    <input type="password"name="password" placeholder="请输入密码"><br>
+    <input type="submit" value="登  录">
+    <% if(error){%>
+    <%= error%>
+    <% } else if(success){%>
+    <%= success%>
+    <%}%>
+  </form>
+  <% }%>
+</div>

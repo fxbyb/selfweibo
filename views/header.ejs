@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <script src="/js/aglar.js"></script>
+  <script src="/js/jquery-3.1.1.js"></script>
+  <script src="/js/public.js"></script>
+
+</head>
+<body>
+<header>
+  <div class="container">
+    <img src="/images/sina.png" alt="新浪微博" title="新浪微博">
+    <div>
+      <a href="/"><span class="glyphicon glyphicon-home"></span>首页</a>
+      <% if(user){%>
+      <a href="/self/index/<%= user.name%>"><%= user.name %></a>
+      <a href="/logout">退出</a>
+      <% }else{ %>
+      <a href="/regist">注册</a>
+      <a href="/">登录</a>
+      <% } %>
+    </div>
+  </div>
+</header>
+

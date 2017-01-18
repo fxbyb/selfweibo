@@ -1,0 +1,96 @@
+<% include header.ejs%>
+<div class="container">
+  <div class="col-md-1"></div>
+  <div id="self" class="col-md-10">
+    <section class="Hself" style="background-image: url('/images/bg.jpg')">
+      <% if(user && user.name==name.name){%>
+      <form action="/idPicture" method="post" enctype="multipart/form-data">
+        <% if(name.idpicture){%>
+        <img class="cur" src="/images/idpicture/<%= name.idpicture%>" alt="点击更换头像">
+        <%}else{%>
+        <img class="cur" src="/images/touxiang.png%>" alt="点击更换头像">
+        <%}%>
+        <input type="file" name="idpic" multiple class="hidden file1">
+        <input name="idpicture" type="text" value="" class="hidden file2">
+        <input type="submit" value="保存" class="file3 hidden">
+      </form>
+      <%}else{%>
+      <img src="/images/idpicture/<%= name.idpicture%>" alt="点击更换头像">
+      <%}%>
+      <h3><%= name.name %></h3>
+      <% if(name.jianjie){%>
+      <p><%= name.jianjie%></p>
+      <%}else{%>
+      <p>这个人很懒，什么都没有留下</p>
+      <%}%>
+    </section>
+    <div class="Cself">
+      <% if(user && user.name==name.name){%>
+      <% if(kind =='index'){%>
+      <a class="red" href="/self/index/<%= name.name%>">我的主页</a>
+      <a href="/self/picture/<%= name.name %>">我的相册</a>
+      <a href="/self/message/<%= name.name %>">我的资料</a>
+      <%}%>
+      <% if(kind=='message'){%>
+      <a href="/self/index/<%= name.name%>">我的主页</a>
+      <a href="/self/picture/<%= name.name %>">我的相册</a>
+      <a class="red" href="/self/message/<%= name.name %>">我的资料</a>
+      <%}%>
+      <% if(kind=='Picture'){%>
+      <a href="/self/index/<%= name.name%>">我的主页</a>
+      <a class="red" href="/self/picture/<%= name.name %>">我的相册</a>
+      <a href="/self/message/<%= name.name %>">我的资料</a>
+      <%}%>
+      <%}else{%>
+      <% if(kind =='index'){%>
+      <a class="red" href="/self/index/<%= name.name%>">TA的主页</a>
+      <a href="/self/picture/<%= name.name %>">TA的相册</a>
+      <a href="/self/message/<%= name.name %>">TA的资料</a>
+      <%}%>
+      <% if(kind=='message'){%>
+      <a href="/self/index/<%= name.name%>">TA的主页</a>
+      <a href="/self/picture/<%= name.name %>">TA的相册</a>
+      <a class="red" href="/self/message/<%= name.name %>">TA的资料</a>
+      <%}%>
+      <% if(kind=='Picture'){%>
+      <a href="/self/index/<%= name.name%>">TA的主页</a>
+      <a class="red" href="/self/picture/<%= name.name %>">TA的相册</a>
+      <a href="/self/message/<%= name.name %>">TA的资料</a>
+      <%}%>
+      <%}%>
+    </div>
+    <div class="Fself">
+      <% if(kind=='index'){%>
+      <% include selfIndex.ejs%>
+      <% }%>
+      <% if(kind=='message'){%>
+      <% include selfMessage.ejs%>
+      <% }%>
+      <% if(kind=='Picture'){%>
+      <% include selfPicture.ejs%>
+      <% }%>
+    </div>
+  </div>
+</div>
+<% include footer.ejs%>
+<script>
+  $(function () {
+    $('.Hself img').on('click',function () {
+      $(this).next().click()
+    })
+    var file1 = $('.Hself form .file1');
+    var file2 = $('.Hself form .file2');
+    var file3 = $('.Hself form .file3');
+    file1.on('change',function () {
+      var file = $(this)[0].files[0];
+      if (file.type.startsWith('image')) {
+        var name = file.name;
+        file2.val(name);
+        file3.click();
+      }else{
+        alert('只能上传图片');
+      }
+    })
+  })
+
+</script>
